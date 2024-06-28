@@ -45,7 +45,7 @@ export const ConnectElementCustomMethodConfig = {
     setCollectionOptions: (
       _collectionOptions: CollectionOptions | undefined
     ): void => {},
-    setOnNotificationsChange: (_listener: (() => void) | undefined): void => {}
+    setOnNotificationsChange: (_listener: ((response?: {total?: number, actionRequired?: number}) => void) | undefined): void => {}
   },
   "issuing-card": {
     setDefaultCard: (_defaultCard: string | undefined): void => {},
