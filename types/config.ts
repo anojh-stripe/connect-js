@@ -1,25 +1,17 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-export type FetchEphemeralKeyFunction = (fetchParams: {
-  issuingCard: string;
-  nonce: string;
-}) => Promise<{
-  issuingCard: string;
-  nonce: string;
-  ephemeralKeySecret: string;
-}>;
-
 export type CollectionOptions = {
   fields: "currently_due" | "eventually_due";
   futureRequirements?: "omit" | "include";
 };
 
+export type NotificationCount = {
+  total: number;
+  actionRequired: number;
+};
+
 export const ConnectElementCustomMethodConfig = {
-  "payment-details": {
-    setPayment: (_payment: string | undefined): void => {},
-    setOnClose: (_listener: (() => void) | undefined): void => {}
-  },
   "account-onboarding": {
     setFullTermsOfServiceUrl: (
       _termOfServiceUrl: string | undefined
@@ -45,26 +37,14 @@ export const ConnectElementCustomMethodConfig = {
     setCollectionOptions: (
       _collectionOptions: CollectionOptions | undefined
     ): void => {},
-    setOnNotificationsChange: (_listener: ((response?: {total?: number, actionRequired?: number}) => void) | undefined): void => {}
-  },
-  "issuing-card": {
-    setDefaultCard: (_defaultCard: string | undefined): void => {},
-    setCardArtFileLink: (_cardArtFileLink: string | undefined): void => {},
-    setCardSwitching: (_cardSwitching: boolean | undefined): void => {},
-    setFetchEphemeralKey: (
-      _fetchEphemeralKey: FetchEphemeralKeyFunction | undefined
+    setOnNotificationsChange: (
+      _listener:
+        | (({ total, actionRequired }: NotificationCount) => void)
+        | undefined
     ): void => {}
   },
-  "issuing-cards-list": {
-    setCardArtFileLink: (_cardArtFileLink: string | undefined): void => {},
-    setFetchEphemeralKey: (
-      _fetchEphemeralKey: FetchEphemeralKeyFunction | undefined
-    ): void => {}
-  },
-  "financial-account": {
-    setFinancialAccount: (_financialAccount: string): void => {}
-  },
-  "financial-account-transactions": {
-    setFinancialAccount: (_financialAccount: string): void => {}
+  "payment-details": {
+    setPayment: (_payment: string | undefined): void => {},
+    setOnClose: (_listener: (() => void) | undefined): void => {}
   }
 };
